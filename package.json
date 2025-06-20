@@ -1,6 +1,6 @@
 {
   "name": "astro-tailwind-shadcn-template",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": {
     "name": "Fred Nunes",
     "email": "fred@multipixel.com.br"
@@ -9,9 +9,11 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "start": "bun --bun ./dist/server/entry.mjs"
   },
   "dependencies": {
+    "@astrojs/node": "^9.2.2",
     "@astrojs/react": "^4.3.0",
     "@radix-ui/react-slot": "^1.2.3",
     "@tailwindcss/vite": "^4.1.10",
