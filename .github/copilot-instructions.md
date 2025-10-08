@@ -16,9 +16,9 @@ This template provides a pre-configured Astro project with Tailwind CSS v4 and s
 
 ## Technology Stack
 
-- **Framework**: Astro 5.9.4
-- **React**: 19.1.0 (for interactive components)
-- **Styling**: Tailwind CSS v4.1.10
+- **Framework**: Astro 5.14.1
+- **React**: 19.2.0 (for interactive components)
+- **Styling**: Tailwind CSS v4.1.14
 - **UI Components**: shadcn/ui with Radix UI primitives
 - **Icons**: Lucide React
 - **Package Manager**: Bun
@@ -49,9 +49,25 @@ src/
 - **Pages**: lowercase with `.astro` extension
 - **Utilities**: camelCase with `.ts` extension
 
+### Example Files Policy
+
+**📝 EXAMPLE FILES**: Only create example, demo, or sample files when explicitly requested by the user.
+
+**📋 DOCUMENTATION FILES**: Only create implementation documentation (`.md` files) when explicitly requested by the user.
+
+**Guidelines:**
+
+- **Default behavior**: Focus on the actual implementation, not examples or documentation
+- **When to create examples**: Only when the user specifically asks for examples, demos, or sample files
+- **When to create documentation**: Only when the user specifically asks for implementation documentation, guides, or explanatory markdown files
+- **Example file naming**: Prefix with `example-` or place in `examples/` directory when created
+- **Documentation file naming**: Use descriptive names like `IMPLEMENTATION.md`, `GUIDE.md`, or place in `docs/` directory when created
+- **Keep examples minimal**: If examples are requested, make them focused and relevant to the specific use case
+- **Keep documentation focused**: If documentation is requested, make it specific to the implementation at hand
+
 ### Component Development Priority
 
-**🚨 ASTRO FIRST PRINCIPLE**: Always ask yourself: "Can this be done with Astro before considering React?"
+**🚨 ASTRO FIRST PRINCIPLE**: Always ask yourself: "Can this be done with Astro before considering React? If I will use shadcn/ui, can this component be converted to an Astro lossless equivalent component?"
 
 **Decision Tree:**
 
@@ -63,13 +79,49 @@ src/
 **Implementation:**
 
 - **Astro Components**: Default choice, use for static content and simple interactions
-- **React Components**: Only when Astro cannot handle the requirement, always use `client:` directive
-- **Hybrid Approach**: Astro as shell/layout, embed React components where needed (islands architecture)
+- **React Components**: Only for interactive features like form validation, analytics dashboards, always use `client:` directive
+- **Hybrid Approach**: Astro as shell/layout for bio pages, embed React for interactive widgets
 
-### shadcn/ui Integration
+### shadcn/ui Integration & Accessibility Priority
 
-- Components are located in `src/components/ui/`
-- Use the configured aliases: `@/components`, `@/lib/utils`, etc.
+**🛡️ SHADCN/UI FIRST PRINCIPLE**: Always prioritize shadcn/ui components over custom implementations for accessibility and consistency.
+
+**Component Selection Decision Tree:**
+
+1. **Does a shadcn/ui component exist for this functionality?** → Use shadcn/ui component
+2. **Can the functionality be achieved by composing existing shadcn/ui components?** → Compose them
+3. **Is this a simple static element without interactivity?** → Consider converting shadcn/ui component to Astro component with Tailwind
+4. **Does this require custom complex logic not available in shadcn/ui?** → Build custom component following shadcn/ui patterns
+
+**shadcn/ui Component Conversion Strategy:**
+
+When converting custom components to use shadcn/ui:
+
+1. **Identify shadcn/ui equivalents**: Avatar, Card, Badge, Button, etc.
+2. **Assess if component can remain as Astro**:
+   - If the shadcn/ui component requires React features (state, events) → Convert to React
+   - If the shadcn/ui component is just styling/markup → Create Astro wrapper
+3. **Maintain accessibility**: Always prefer shadcn/ui's built-in accessibility over custom implementations
+4. **Use Lucide React icons** instead of inline SVG for consistency
+
+**Astro ↔ React Component Conversion Guidelines:**
+
+**React to Astro Conversion (Preferred when possible):**
+
+- ✅ **Convert when**: Component is purely presentational, no client-side state needed
+- ✅ **Benefits**: Better performance, SSR by default, smaller bundle size
+- ✅ **Pattern**: Extract styling/markup, use Astro slots for children, maintain TypeScript interfaces
+
+**Astro to React Conversion (When necessary):**
+
+- ⚠️ **Convert when**: Need client-side interactivity, state management, or shadcn/ui component requires React
+- ⚠️ **Pattern**: Add `client:load` or `client:visible` directive, maintain same props interface
+- ⚠️ **Keep minimal**: Only add React features that are absolutely necessary
+
+**shadcn/ui Integration Setup:**
+
+- Components located in `src/components/ui/`
+- Use configured aliases: `@/components`, `@/lib/utils`, etc.
 - Follow shadcn/ui naming conventions and structure
 - Leverage Radix UI primitives for accessibility
 
@@ -79,13 +131,15 @@ src/
 
 **CSS Priority Rules:**
 
-1. **Tailwind utilities** - Primary choice for ALL styling
-2. **CSS variables** - For theming and design tokens only
-3. **Global CSS** - Only for base styles and resets in `src/styles/global.css`
-4. **Local/Custom CSS** - Last resort, only for very specific edge cases
+1. **shadcn/ui components** - First choice for UI elements
+2. **Tailwind utilities** - Primary choice for ALL styling
+3. **CSS variables** - For theming and design tokens only
+4. **Global CSS** - Only for base styles and resets in `src/styles/global.css`
+5. **Local/Custom CSS** - Last resort, only for very specific edge cases
 
 **Implementation:**
 
+- Use shadcn/ui components for interactive elements
 - Use Tailwind CSS v4 utility classes as the default
 - Leverage Tailwind's responsive and state variants (`hover:`, `md:`, etc.)
 - Use the `cn()` utility function for conditional classes
@@ -114,7 +168,7 @@ src/
 ### Code Style & Component Management
 
 - **TypeScript**: Use for all new files
-- **Icons**: Lucide React
+- **Icons**: Lucide React (replace inline SVG icons)
 - **Utilities**: Use `class-variance-authority` for variants and `cn()` for className management
 - **Component Organization**:
   - shadcn/ui components: `src/components/ui/`
@@ -129,24 +183,15 @@ src/
 - **Client directives**: Use `client:load` for critical components, `client:visible` for lazy-loading
 - **Minimize JavaScript**: Prefer Astro's `<script>` tags for simple interactions
 
-## Core Development Philosophy
+## Quick Reference - Core Development Principles
 
-### 🚨 ASTRO FIRST PRINCIPLE
+### 🚨 **ASTRO FIRST**: Static content, layouts, SEO → Astro (.astro) | Complex interactivity → React (.tsx)
 
-Always ask: "Can this be done with Astro before considering React?"
+### 🛡️ **SHADCN/UI FIRST**: Use shadcn/ui components → Compose existing → Custom (with accessibility focus)
 
-**Decision Tree:**
+### 🎨 **TAILWIND-FIRST**: shadcn/ui → Tailwind utilities → CSS variables → Global CSS → Local CSS
 
-1. **Static content, layouts, forms** → Astro (.astro)
-2. **Complex interactivity, state management** → React (.tsx) with `client:` directive
-
-### 🎨 TAILWIND-FIRST APPROACH
-
-**CSS Priority:** Tailwind utilities → CSS variables (theming) → Global CSS → Local CSS (last resort)
-
-### 🏗️ SEMANTIC-FIRST PRINCIPLE
-
-**HTML Priority:** Semantic elements → Form elements → Interactive elements → Content elements → Generic containers (last resort)
+### 🏗️ **SEMANTIC-FIRST**: Semantic elements → Form elements → Interactive → Content → Generic containers
 
 ## Author Information
 
@@ -156,9 +201,9 @@ Always ask: "Can this be done with Astro before considering React?"
 
 ## Important Notes
 
-- This template uses Tailwind CSS v4 (latest version)
+- This project uses Tailwind CSS v4 (latest version)
 - React 19 is configured for modern React features
-- shadcn/ui is set to "new-york" style variant
+- shadcn/ui is set to "neutral" style variant
 - TypeScript is enabled throughout the project
 - Bun is the preferred package manager
 
