@@ -10,6 +10,10 @@ import node from "@astrojs/node";
 export default defineConfig({
   integrations: [react()],
 
+  server: {
+    allowedHosts: ["angry_taussig.orb.local"]
+  },
+
   vite: {
     plugins: [tailwindcss()]
   },
