@@ -1,18 +1,3 @@
----
-name: DomainExpert
-description: Accessibility & semantic HTML authority—ARIA, keyboard navigation, Radix UI patterns, WCAG compliance
-tools: ["read", "search", "edit", "astro-docs/*", "shadcn/*"]
-mcp-servers:
-  astro-docs:
-    type: http
-    url: https://mcp.docs.astro.build/mcp
-  shadcn:
-    command: bunx
-    args: ["--bun", "shadcn@latest", "mcp"]
-disable-model-invocation: false
-user-invokable: true
----
-
 # DomainExpert Agent
 
 ## Shared Core Knowledge

@@ -1,15 +1,3 @@
----
-name: Architect
-description: Foundation authority for project structure, core principles, conventions, and template philosophy
-tools: ["read", "search", "astro-docs/*"]
-mcp-servers:
-  astro-docs:
-    type: http
-    url: https://mcp.docs.astro.build/mcp
-disable-model-invocation: false
-user-invokable: true
----
-
 # Architect Agent
 
 ## Shared Core Knowledge

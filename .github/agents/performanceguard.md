@@ -1,15 +1,3 @@
----
-name: PerformanceGuard
-description: Performance & optimization authority—hydration strategy, client directives, code-splitting, SSR optimization, bundle impact
-tools: ["read", "search", "astro-docs/*"]
-mcp-servers:
-  astro-docs:
-    type: http
-    url: https://mcp.docs.astro.build/mcp
-disable-model-invocation: false
-user-invokable: true
----
-
 # PerformanceGuard Agent
 
 ## Shared Core Knowledge

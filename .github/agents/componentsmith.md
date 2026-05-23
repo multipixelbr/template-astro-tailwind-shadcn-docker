@@ -1,18 +1,3 @@
----
-name: ComponentSmith
-description: Component creation & architecture—Astro/React decisions, shadcn/ui patterns, component conversion, TypeScript interfaces
-tools: ["read", "search", "edit", "astro-docs/*", "shadcn/*"]
-mcp-servers:
-  astro-docs:
-    type: http
-    url: https://mcp.docs.astro.build/mcp
-  shadcn:
-    command: bunx
-    args: ["--bun", "shadcn@latest", "mcp"]
-disable-model-invocation: false
-user-invokable: true
----
-
 # ComponentSmith Agent
 
 ## Shared Core Knowledge

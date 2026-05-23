@@ -1,15 +1,3 @@
----
-name: Stylist
-description: Styling authority—Tailwind-first approach, CSS variables, design tokens, responsive patterns
-tools: ["read", "search", "edit", "shadcn/*"]
-mcp-servers:
-  shadcn:
-    command: bunx
-    args: ["--bun", "shadcn@latest", "mcp"]
-disable-model-invocation: false
-user-invokable: true
----
-
 # Stylist Agent
 
 ## Shared Core Knowledge
